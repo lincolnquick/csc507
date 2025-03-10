@@ -10,7 +10,7 @@ SECONDS=0
 
 rm -f  file1.txt
 
-for ((i=1; i<1000000; i++))
+for ((i=1; i<=1000000; i++))
 do
    echo $RANDOM >> file1.txt
 done
