@@ -1,3 +1,5 @@
+import sys
+
 def split_file(input_file, num_parts):
     with open(input_file, 'r') as infile:
         lines = infile.readlines()
@@ -16,5 +18,12 @@ def split_file(input_file, num_parts):
         
         print(f"Split {total_lines} lines into {num_parts} files.")
         
-    if __name__ == "__main__":
-        split_file('file1.txt', 10)
+if __name__ == "__main__":
+    if (len(sys.argv) != 3):
+        print("Usage: python split_file.py <input_file> <num_parts>")
+        sys.exit(1)
+    input_file = sys.argv[1]
+    num_parts = int(sys.argv[2])
+
+    split_file(input_file, num_parts)
+
