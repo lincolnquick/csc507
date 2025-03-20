@@ -43,7 +43,7 @@ def split_and_parallel_process(filename, parts):
     subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
 
     # Split the file into N parts
-    subprocess.run(f"python3 split_file.py {parts}", shell=True, check=True)
+    subprocess.run(f"python3 split_file.py {filename} {parts}", shell=True, check=True)
 
     # Run parallel processing
     subprocess.run(f"python3 run_parallel.py {parts}", shell=True, check=True)
