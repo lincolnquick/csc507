@@ -14,7 +14,7 @@ def split_file(input_file, num_parts):
         with open(f'file_part_{i + 1}.txt', 'w') as part_file:
             part_file.writelines(part_lines)
         
-        print(f"Split {total_lines} lines into {num_parts) files.")
+        print(f"Split {total_lines} lines into {num_parts} files.")
         
     if __name__ == "__main__":
         split_file('file1.txt', 10)
