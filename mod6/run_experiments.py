@@ -1,6 +1,26 @@
 import subprocess
 import time
 import os
+import sys
+
+# Redirect print output to both terminal and a text file
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "w")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+# Replace stdout with logger
+sys.stdout = Logger("experiment_results.txt")
+
+results_summary = {}
 
 def check_or_generate_file(count, filename):
     """
@@ -37,19 +57,34 @@ def run_double_numbers(filename):
     subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
     subprocess.run("python3 double_numbers.py", shell=True, check=True)
 
-def split_and_parallel_process(filename, parts):
+def split_and_parallel_process(filename, parts, results_summary):
     print(f"\n--- Splitting {filename} into {parts} parts ---")
-    # Copy the file to file1.txt, because split_file.py expects that filename
-    subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
 
-    # Split the file into N parts
-    subprocess.run(f"python3 split_file.py {filename} {parts}", shell=True, check=True)
+    start_time = time.perf_counter()  # Start timing the whole operation
 
-    # Run parallel processing
-    subprocess.run(f"python3 run_parallel.py {parts}", shell=True, check=True)
+    try:
+        # Copy the file to file1.txt because split_file.py expects that filename
+        subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
 
-    # Combine the results
-    subprocess.run(f"python3 combine_files.py {parts} newfile1_combined_{parts}_parts.txt", shell=True, check=True)
+        # Split the file into N parts
+        subprocess.run(f"python3 split_file.py file1.txt {parts}", shell=True, check=True)
+
+        # Run parallel processing
+        subprocess.run(f"python3 run_parallel.py {parts}", shell=True, check=True)
+
+        # Combine the results
+        subprocess.run(f"python3 combine_files.py {parts} newfile1_combined_{parts}_parts.txt", shell=True, check=True)
+
+        # Measure total elapsed time
+        elapsed_time = time.perf_counter() - start_time
+
+        # Add to the summary results dictionary
+        results_summary[f"{filename} split {parts} parts"] = elapsed_time
+
+        print(f"\n--- Completed {parts}-part process for {filename} in {elapsed_time:.4f} seconds ---")
+
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred during the split/parallel/combine process: {e}")
 
 def main():
     test_cases = [
@@ -72,9 +107,16 @@ def main():
 
         # Step 3: Run split/parallel/combine workflows
         for split_count in splits:
-            split_and_parallel_process(test["filename"], split_count)
+            split_and_parallel_process(test["filename"], split_count, results_summary)
 
     print("\nAll experiments completed!")
+
+    print("\n=====================================")
+    print("Summary of Results (Time in Seconds)")
+    print("=====================================\n")
+
+    for test, elapsed in results_summary.items():
+        print(f"{test}: {elapsed:.4f} seconds")
 
 if __name__ == "__main__":
     main()
