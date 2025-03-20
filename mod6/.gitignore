@@ -1,2 +1,3 @@
 # Ignore all files that start with 'file' and end with '.txt'
 file*.txt
+newfile*.txt
