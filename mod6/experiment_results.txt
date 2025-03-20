@@ -1,0 +1,67 @@
+
+============================
+Testing 1 Million Lines
+============================
+
+Found existing file1_1M.txt. Verifying line count...
+file1_1M.txt has correct line count (1000000 lines). No regeneration needed.
+
+--- Running double_numbers.py (single file processing) ---
+
+--- Splitting file1_1M.txt into 10 parts ---
+
+--- Completed 10-part process for file1_1M.txt in 0.8201 seconds ---
+
+--- Splitting file1_1M.txt into 2 parts ---
+
+--- Completed 2-part process for file1_1M.txt in 1.1853 seconds ---
+
+--- Splitting file1_1M.txt into 5 parts ---
+
+--- Completed 5-part process for file1_1M.txt in 1.0104 seconds ---
+
+--- Splitting file1_1M.txt into 20 parts ---
+
+--- Completed 20-part process for file1_1M.txt in 0.3884 seconds ---
+
+============================
+Testing 10 Million Lines
+============================
+
+Found existing file1_10M.txt. Verifying line count...
+file1_10M.txt has incorrect line count (1000000 lines). Regenerating...
+Generating 10000000 random numbers into file2_parallel.txt...
+Renamed file2_parallel.txt to file1_10M.txt.
+
+--- Running double_numbers.py (single file processing) ---
+
+--- Splitting file1_10M.txt into 10 parts ---
+
+--- Completed 10-part process for file1_10M.txt in 0.7646 seconds ---
+
+--- Splitting file1_10M.txt into 2 parts ---
+
+--- Completed 2-part process for file1_10M.txt in 1.0095 seconds ---
+
+--- Splitting file1_10M.txt into 5 parts ---
+
+--- Completed 5-part process for file1_10M.txt in 0.9325 seconds ---
+
+--- Splitting file1_10M.txt into 20 parts ---
+
+--- Completed 20-part process for file1_10M.txt in 0.3836 seconds ---
+
+All experiments completed!
+
+=====================================
+Summary of Results (Time in Seconds)
+=====================================
+
+file1_1M.txt split 10 parts: 0.8201 seconds
+file1_1M.txt split 2 parts: 1.1853 seconds
+file1_1M.txt split 5 parts: 1.0104 seconds
+file1_1M.txt split 20 parts: 0.3884 seconds
+file1_10M.txt split 10 parts: 0.7646 seconds
+file1_10M.txt split 2 parts: 1.0095 seconds
+file1_10M.txt split 5 parts: 0.9325 seconds
+file1_10M.txt split 20 parts: 0.3836 seconds
