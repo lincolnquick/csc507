@@ -41,7 +41,7 @@ def check_or_generate_file(count, filename):
 
     # Generate random numbers using numbers.py (parallel for speed)
     print(f"Generating {count} random numbers into file2_parallel.txt...")
-    subprocess.run("python3 numbers.py", shell=True, check=True)
+    subprocess.run(f"python3 numbers.py {count}", shell=True, check=True)
 
     # Rename file2_parallel.txt to desired filename
     if os.path.exists("file2_parallel.txt"):

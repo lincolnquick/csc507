@@ -10,39 +10,39 @@ file1_1M.txt has correct line count (1000000 lines). No regeneration needed.
 
 --- Running double_numbers.py (single file processing) ---
 
---- Completed single-process for file1_1M.txt in 0.6653 seconds ---
+--- Completed single-process for file1_1M.txt in 0.7718 seconds ---
 
 --- Splitting file1_1M.txt into 2 parts ---
 
---- Completed 2-part process for file1_1M.txt in 0.8398 seconds ---
+--- Completed 2-part process for file1_1M.txt in 1.1300 seconds ---
 
 --- Splitting file1_1M.txt into 5 parts ---
 
---- Completed 5-part process for file1_1M.txt in 0.7659 seconds ---
+--- Completed 5-part process for file1_1M.txt in 0.9735 seconds ---
 
 --- Splitting file1_1M.txt into 10 parts ---
 
---- Completed 10-part process for file1_1M.txt in 0.7636 seconds ---
+--- Completed 10-part process for file1_1M.txt in 1.1406 seconds ---
 
 --- Splitting file1_1M.txt into 20 parts ---
 
---- Completed 20-part process for file1_1M.txt in 0.4039 seconds ---
+--- Completed 20-part process for file1_1M.txt in 0.5707 seconds ---
 
 --- Splitting file1_1M.txt into 50 parts ---
 
---- Completed 50-part process for file1_1M.txt in 0.3584 seconds ---
+--- Completed 50-part process for file1_1M.txt in 0.5037 seconds ---
 
 --- Splitting file1_1M.txt into 100 parts ---
 
---- Completed 100-part process for file1_1M.txt in 0.3741 seconds ---
+--- Completed 100-part process for file1_1M.txt in 0.5037 seconds ---
 
 --- Splitting file1_1M.txt into 200 parts ---
 
---- Completed 200-part process for file1_1M.txt in 0.3756 seconds ---
+--- Completed 200-part process for file1_1M.txt in 0.5106 seconds ---
 
 --- Splitting file1_1M.txt into 500 parts ---
 
---- Completed 500-part process for file1_1M.txt in 0.3709 seconds ---
+--- Completed 500-part process for file1_1M.txt in 0.5580 seconds ---
 
 ============================
 Testing 10 Million Lines
@@ -57,39 +57,39 @@ Renamed file2_parallel.txt to file1_10M.txt.
 
 --- Running double_numbers.py (single file processing) ---
 
---- Completed single-process for file1_10M.txt in 0.6145 seconds ---
+--- Completed single-process for file1_10M.txt in 7.4638 seconds ---
 
 --- Splitting file1_10M.txt into 2 parts ---
 
---- Completed 2-part process for file1_10M.txt in 0.8057 seconds ---
+--- Completed 2-part process for file1_10M.txt in 8.6142 seconds ---
 
 --- Splitting file1_10M.txt into 5 parts ---
 
---- Completed 5-part process for file1_10M.txt in 0.7639 seconds ---
+--- Completed 5-part process for file1_10M.txt in 7.6867 seconds ---
 
 --- Splitting file1_10M.txt into 10 parts ---
 
---- Completed 10-part process for file1_10M.txt in 0.7332 seconds ---
+--- Completed 10-part process for file1_10M.txt in 8.0902 seconds ---
 
 --- Splitting file1_10M.txt into 20 parts ---
 
---- Completed 20-part process for file1_10M.txt in 0.3968 seconds ---
+--- Completed 20-part process for file1_10M.txt in 3.0663 seconds ---
 
 --- Splitting file1_10M.txt into 50 parts ---
 
---- Completed 50-part process for file1_10M.txt in 0.3351 seconds ---
+--- Completed 50-part process for file1_10M.txt in 2.5788 seconds ---
 
 --- Splitting file1_10M.txt into 100 parts ---
 
---- Completed 100-part process for file1_10M.txt in 0.3323 seconds ---
+--- Completed 100-part process for file1_10M.txt in 2.2816 seconds ---
 
 --- Splitting file1_10M.txt into 200 parts ---
 
---- Completed 200-part process for file1_10M.txt in 0.3603 seconds ---
+--- Completed 200-part process for file1_10M.txt in 2.5367 seconds ---
 
 --- Splitting file1_10M.txt into 500 parts ---
 
---- Completed 500-part process for file1_10M.txt in 0.4371 seconds ---
+--- Completed 500-part process for file1_10M.txt in 2.4556 seconds ---
 
 All experiments completed!
 
@@ -97,21 +97,21 @@ All experiments completed!
 Summary of Results (Time in Seconds)
 =====================================
 
-file1_1M.txt single-process (no splits): 0.6653 seconds
-file1_1M.txt split 2 parts: 0.8398 seconds
-file1_1M.txt split 5 parts: 0.7659 seconds
-file1_1M.txt split 10 parts: 0.7636 seconds
-file1_1M.txt split 20 parts: 0.4039 seconds
-file1_1M.txt split 50 parts: 0.3584 seconds
-file1_1M.txt split 100 parts: 0.3741 seconds
-file1_1M.txt split 200 parts: 0.3756 seconds
-file1_1M.txt split 500 parts: 0.3709 seconds
-file1_10M.txt single-process (no splits): 0.6145 seconds
-file1_10M.txt split 2 parts: 0.8057 seconds
-file1_10M.txt split 5 parts: 0.7639 seconds
-file1_10M.txt split 10 parts: 0.7332 seconds
-file1_10M.txt split 20 parts: 0.3968 seconds
-file1_10M.txt split 50 parts: 0.3351 seconds
-file1_10M.txt split 100 parts: 0.3323 seconds
-file1_10M.txt split 200 parts: 0.3603 seconds
-file1_10M.txt split 500 parts: 0.4371 seconds
+file1_1M.txt single-process (no splits): 0.7718 seconds
+file1_1M.txt split 2 parts: 1.1300 seconds
+file1_1M.txt split 5 parts: 0.9735 seconds
+file1_1M.txt split 10 parts: 1.1406 seconds
+file1_1M.txt split 20 parts: 0.5707 seconds
+file1_1M.txt split 50 parts: 0.5037 seconds
+file1_1M.txt split 100 parts: 0.5037 seconds
+file1_1M.txt split 200 parts: 0.5106 seconds
+file1_1M.txt split 500 parts: 0.5580 seconds
+file1_10M.txt single-process (no splits): 7.4638 seconds
+file1_10M.txt split 2 parts: 8.6142 seconds
+file1_10M.txt split 5 parts: 7.6867 seconds
+file1_10M.txt split 10 parts: 8.0902 seconds
+file1_10M.txt split 20 parts: 3.0663 seconds
+file1_10M.txt split 50 parts: 2.5788 seconds
+file1_10M.txt split 100 parts: 2.2816 seconds
+file1_10M.txt split 200 parts: 2.5367 seconds
+file1_10M.txt split 500 parts: 2.4556 seconds

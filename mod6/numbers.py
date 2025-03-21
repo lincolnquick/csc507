@@ -4,6 +4,7 @@
 # multithreading and multiprocessing.
 
 import time
+import sys
 import random
 import io
 import multiprocessing
@@ -67,17 +68,23 @@ if __name__ == "__main__":
     filename_multi = "file2_threaded.txt"
     filename_parallel = "file2_parallel.txt"
     
+    # Default values
     count = 1_000_000
     num_threads = 2
     num_processes = 2
     
+    # Accept an optional argument for count
+    if len(sys.argv) > 1:
+        print(f"Using provided count for random number generation: {sys.argv[1]}")
+        count = int(sys.argv[1])
+    
     print("Running random number generation tests...")
     
-    time_single = generate_numbers_single_threaded(filename_single, count)
-    print(f"Single-threaded execution time: {time_single:.4f} seconds")
+    #time_single = generate_numbers_single_threaded(filename_single, count)
+    #print(f"Single-threaded execution time: {time_single:.4f} seconds")
     
-    time_multi = generate_numbers_multithreaded(filename_multi, count, num_threads)
-    print(f"Multi-threaded execution time: {time_multi:.4f} seconds")
+    #time_multi = generate_numbers_multithreaded(filename_multi, count, num_threads)
+    #print(f"Multi-threaded execution time: {time_multi:.4f} seconds")
     
     time_parallel = generate_numbers_parallel(filename_parallel, count, num_processes)
     print(f"Multi-processing execution time: {time_parallel:.4f} seconds")
