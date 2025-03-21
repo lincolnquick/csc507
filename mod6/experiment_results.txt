@@ -3,53 +3,51 @@
 Testing 1 Million Lines
 ============================
 
-Found existing file1_1M.txt. Verifying line count...
-file1_1M.txt has correct line count (1000000 lines). No regeneration needed.
+file1_1M.txt not found. Generating new file...
+Generating 1000000 random numbers into file2_parallel.txt...
+Renamed file2_parallel.txt to file1_1M.txt.
 
 --- Running double_numbers.py (single file processing) ---
 
 --- Running double_numbers.py (single file processing) ---
 
---- Completed single-process for file1_1M.txt in 0.7718 seconds ---
+--- Completed single-process for file1_1M.txt in 1.7670 seconds ---
 
 --- Splitting file1_1M.txt into 2 parts ---
-
---- Completed 2-part process for file1_1M.txt in 1.1300 seconds ---
+An error occurred during the split/parallel/combine process: Command 'python3 combine_files.py 2 newfile1_combined_2_parts.txt' returned non-zero exit status 1.
 
 --- Splitting file1_1M.txt into 5 parts ---
-
---- Completed 5-part process for file1_1M.txt in 0.9735 seconds ---
+An error occurred during the split/parallel/combine process: Command 'python3 combine_files.py 5 newfile1_combined_5_parts.txt' returned non-zero exit status 1.
 
 --- Splitting file1_1M.txt into 10 parts ---
 
---- Completed 10-part process for file1_1M.txt in 1.1406 seconds ---
+--- Completed 10-part process for file1_1M.txt in 1.8398 seconds ---
 
 --- Splitting file1_1M.txt into 20 parts ---
 
---- Completed 20-part process for file1_1M.txt in 0.5707 seconds ---
+--- Completed 20-part process for file1_1M.txt in 0.8493 seconds ---
 
 --- Splitting file1_1M.txt into 50 parts ---
 
---- Completed 50-part process for file1_1M.txt in 0.5037 seconds ---
+--- Completed 50-part process for file1_1M.txt in 0.7521 seconds ---
 
 --- Splitting file1_1M.txt into 100 parts ---
 
---- Completed 100-part process for file1_1M.txt in 0.5037 seconds ---
+--- Completed 100-part process for file1_1M.txt in 0.7773 seconds ---
 
 --- Splitting file1_1M.txt into 200 parts ---
 
---- Completed 200-part process for file1_1M.txt in 0.5106 seconds ---
+--- Completed 200-part process for file1_1M.txt in 0.9761 seconds ---
 
 --- Splitting file1_1M.txt into 500 parts ---
 
---- Completed 500-part process for file1_1M.txt in 0.5580 seconds ---
+--- Completed 500-part process for file1_1M.txt in 1.1628 seconds ---
 
 ============================
 Testing 10 Million Lines
 ============================
 
-Found existing file1_10M.txt. Verifying line count...
-file1_10M.txt has incorrect line count (1000000 lines). Regenerating...
+file1_10M.txt not found. Generating new file...
 Generating 10000000 random numbers into file2_parallel.txt...
 Renamed file2_parallel.txt to file1_10M.txt.
 
@@ -57,39 +55,39 @@ Renamed file2_parallel.txt to file1_10M.txt.
 
 --- Running double_numbers.py (single file processing) ---
 
---- Completed single-process for file1_10M.txt in 7.4638 seconds ---
+--- Completed single-process for file1_10M.txt in 15.4660 seconds ---
 
 --- Splitting file1_10M.txt into 2 parts ---
 
---- Completed 2-part process for file1_10M.txt in 8.6142 seconds ---
+--- Completed 2-part process for file1_10M.txt in 15.5078 seconds ---
 
 --- Splitting file1_10M.txt into 5 parts ---
 
---- Completed 5-part process for file1_10M.txt in 7.6867 seconds ---
+--- Completed 5-part process for file1_10M.txt in 15.9681 seconds ---
 
 --- Splitting file1_10M.txt into 10 parts ---
 
---- Completed 10-part process for file1_10M.txt in 8.0902 seconds ---
+--- Completed 10-part process for file1_10M.txt in 14.1513 seconds ---
 
 --- Splitting file1_10M.txt into 20 parts ---
 
---- Completed 20-part process for file1_10M.txt in 3.0663 seconds ---
+--- Completed 20-part process for file1_10M.txt in 6.3392 seconds ---
 
 --- Splitting file1_10M.txt into 50 parts ---
 
---- Completed 50-part process for file1_10M.txt in 2.5788 seconds ---
+--- Completed 50-part process for file1_10M.txt in 5.0364 seconds ---
 
 --- Splitting file1_10M.txt into 100 parts ---
 
---- Completed 100-part process for file1_10M.txt in 2.2816 seconds ---
+--- Completed 100-part process for file1_10M.txt in 4.9679 seconds ---
 
 --- Splitting file1_10M.txt into 200 parts ---
 
---- Completed 200-part process for file1_10M.txt in 2.5367 seconds ---
+--- Completed 200-part process for file1_10M.txt in 5.5345 seconds ---
 
 --- Splitting file1_10M.txt into 500 parts ---
 
---- Completed 500-part process for file1_10M.txt in 2.4556 seconds ---
+--- Completed 500-part process for file1_10M.txt in 5.2456 seconds ---
 
 All experiments completed!
 
@@ -97,21 +95,19 @@ All experiments completed!
 Summary of Results (Time in Seconds)
 =====================================
 
-file1_1M.txt single-process (no splits): 0.7718 seconds
-file1_1M.txt split 2 parts: 1.1300 seconds
-file1_1M.txt split 5 parts: 0.9735 seconds
-file1_1M.txt split 10 parts: 1.1406 seconds
-file1_1M.txt split 20 parts: 0.5707 seconds
-file1_1M.txt split 50 parts: 0.5037 seconds
-file1_1M.txt split 100 parts: 0.5037 seconds
-file1_1M.txt split 200 parts: 0.5106 seconds
-file1_1M.txt split 500 parts: 0.5580 seconds
-file1_10M.txt single-process (no splits): 7.4638 seconds
-file1_10M.txt split 2 parts: 8.6142 seconds
-file1_10M.txt split 5 parts: 7.6867 seconds
-file1_10M.txt split 10 parts: 8.0902 seconds
-file1_10M.txt split 20 parts: 3.0663 seconds
-file1_10M.txt split 50 parts: 2.5788 seconds
-file1_10M.txt split 100 parts: 2.2816 seconds
-file1_10M.txt split 200 parts: 2.5367 seconds
-file1_10M.txt split 500 parts: 2.4556 seconds
+file1_1M.txt single-process (no splits): 1.7670 seconds
+file1_1M.txt split 10 parts: 1.8398 seconds
+file1_1M.txt split 20 parts: 0.8493 seconds
+file1_1M.txt split 50 parts: 0.7521 seconds
+file1_1M.txt split 100 parts: 0.7773 seconds
+file1_1M.txt split 200 parts: 0.9761 seconds
+file1_1M.txt split 500 parts: 1.1628 seconds
+file1_10M.txt single-process (no splits): 15.4660 seconds
+file1_10M.txt split 2 parts: 15.5078 seconds
+file1_10M.txt split 5 parts: 15.9681 seconds
+file1_10M.txt split 10 parts: 14.1513 seconds
+file1_10M.txt split 20 parts: 6.3392 seconds
+file1_10M.txt split 50 parts: 5.0364 seconds
+file1_10M.txt split 100 parts: 4.9679 seconds
+file1_10M.txt split 200 parts: 5.5345 seconds
+file1_10M.txt split 500 parts: 5.2456 seconds
