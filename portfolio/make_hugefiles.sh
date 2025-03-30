@@ -4,6 +4,8 @@
 
 echo "Creating hugefile1.txt and hugefile2.txt..."
 
+rm -f  hugefile1.txt hugefile2.txt
+
 for i in {1..1000}
 do
     cat file1.txt >> hugefile1.txt
