@@ -1,0 +1,23 @@
+# Ignore all text files
+*.txt
+
+# Allow shell scripts
+!*.sh
+
+# Allow Python scripts
+!*.py
+
+# Allow Markdown files
+!*.md
+
+# Ignore temporary or backup files
+*.log
+*.tmp
+*.bak
+*~
+
+# Ignore OS and editor files
+.DS_Store
+__pycache__/
+*.swp
+*.swo
