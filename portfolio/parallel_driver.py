@@ -39,5 +39,13 @@ def run_parallel_driver():
     merge_final_output(num_parts, "totalfile_parallel.txt")
 
     elapsed = time.time() - start_time
+    # Clean up split input files
+    for i in range(1, num_parts + 1):
+        try:
+            os.remove(f"hugefile1_part_{i}.txt")
+            os.remove(f"hugefile2_part_{i}.txt")
+        except FileNotFoundError:
+            pass
+
     print(f"\nTotal parallel processing time: {elapsed:.2f} seconds")
     return elapsed
