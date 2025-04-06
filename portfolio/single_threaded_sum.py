@@ -1,6 +1,11 @@
-# This script reads two files, each containing a list of integers. 
-# This script writes a new file where each line is the sum of the integers from the two files at the same index.
-# It uses a single thread to perform the summation.
+"""
+Filename: single_threaded_sum.py
+Author: Lincoln Quick
+Course: CSC507 Foundations of Operating Systems
+Date: April 6, 2025
+Description: This script reads two large files line by line, adds corresponding numbers from each file,
+and writes the result to a new file using a single thread.
+"""
 
 import time
 

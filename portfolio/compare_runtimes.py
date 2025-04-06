@@ -1,4 +1,11 @@
-import time
+"""
+Filename: compare_runtimes.py
+Author: Lincoln Quick
+Course: CSC507 Foundations of Operating Systems
+Date: April 6, 2025
+Description: Executes and compares the performance of three implementations (single-threaded,
+multithreaded, and parallel multithreaded) and reports their execution times.
+"""
 import shutil
 import os
 import subprocess

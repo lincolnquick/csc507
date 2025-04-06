@@ -1,3 +1,12 @@
+"""
+Filename: parallel_driver.py
+Author: Lincoln Quick
+Course: CSC507 Foundations of Operating Systems
+Date: April 6, 2025
+Description: This script runs the multithreaded summation on 10 file pairs in parallel using multiprocessing,
+and merges the results into a final output file.
+"""
+
 from multiprocessing import Process
 from multithreaded_sum import add_files_multithreaded, count_lines
 import os

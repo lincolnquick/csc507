@@ -1,3 +1,12 @@
+"""
+Filename: split_files.py
+Author: Lincoln Quick
+Course: CSC507 Foundations of Operating Systems
+Date: April 6, 2025
+Description: Splits large input files into multiple smaller parts for parallel processing.
+Each resulting file contains approximately equal numbers of lines.
+"""
+
 def split_file(input_path, output_base, num_parts):
     import math
 

@@ -1,3 +1,13 @@
+"""
+Filename: setup_and_verify.py
+Author: Lincoln Quick
+Course: CSC507 Foundations of Operating Systems
+Date: April 6, 2025
+Description: Automates the full setup process for the CSC507 portfolio project. 
+Generates input files, builds billion-line datasets, verifies their correctness, 
+and runs all performance comparisons. Confirms output accuracy and cleans up temporary files.
+"""
+
 import os
 import subprocess
 import sys

@@ -1,9 +1,9 @@
-import threading
-import time
 import os
+import time
+import io
+from concurrent.futures import ThreadPoolExecutor
 
 OUTPUT_BASE = "chunk_output"
-BUFFER_SIZE = 10000  # number of lines to process in one batch
 
 def count_lines(file_path):
     with open(file_path, 'r') as f:
@@ -12,38 +12,33 @@ def count_lines(file_path):
 def process_chunk(file1_path, file2_path, start_line, num_lines, thread_id):
     output_file = f"{OUTPUT_BASE}_{thread_id}.txt"
 
-    with open(file1_path, 'r') as f1, open(file2_path, 'r') as f2:
+    with open(file1_path, 'r', buffering=io.DEFAULT_BUFFER_SIZE) as f1, \
+         open(file2_path, 'r', buffering=io.DEFAULT_BUFFER_SIZE) as f2:
+
+        # Skip lines up to the chunk start
         for _ in range(start_line):
             f1.readline()
             f2.readline()
 
-        with open(output_file, 'w') as out:
-            buffer = []
-            lines_processed = 0
-
-            while lines_processed < num_lines:
-                batch_size = min(BUFFER_SIZE, num_lines - lines_processed)
-                lines1 = [f1.readline() for _ in range(batch_size)]
-                lines2 = [f2.readline() for _ in range(batch_size)]
-
-                for l1, l2 in zip(lines1, lines2):
-                    try:
-                        total = int(l1.strip()) + int(l2.strip())
-                        buffer.append(f"{total}\n")
-                    except ValueError:
-                        continue
-
-                out.writelines(buffer)
-                buffer.clear()
-                lines_processed += batch_size
+        with open(output_file, 'w', buffering=io.DEFAULT_BUFFER_SIZE) as out:
+            for _ in range(num_lines):
+                line1 = f1.readline()
+                line2 = f2.readline()
+                if not line1 or not line2:
+                    break
+                try:
+                    num1 = int(line1.strip())
+                    num2 = int(line2.strip())
+                    out.write(f"{num1 + num2}\n")
+                except ValueError:
+                    continue
 
 def merge_chunks(output_file, num_chunks):
-    with open(output_file, 'w') as outfile:
+    with open(output_file, 'w', buffering=io.DEFAULT_BUFFER_SIZE) as outfile:
         for i in range(num_chunks):
             chunk_file = f"{OUTPUT_BASE}_{i}.txt"
-            with open(chunk_file, 'r') as infile:
-                for line in infile:
-                    outfile.write(line)
+            with open(chunk_file, 'r', buffering=io.DEFAULT_BUFFER_SIZE) as infile:
+                outfile.writelines(infile)
             os.remove(chunk_file)
 
 def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=None):
@@ -59,20 +54,26 @@ def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=Non
     print(f"Total lines: {total_lines}")
     print(f"Using {num_threads} threads with {chunk_size} lines each.")
 
-    threads = []
-    for i in range(num_threads):
-        start_line = i * chunk_size
-        lines_for_thread = chunk_size if i < num_threads - 1 else total_lines - start_line
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        futures = []
+        for i in range(num_threads):
+            start_line = i * chunk_size
+            lines_for_thread = chunk_size if i < num_threads - 1 else total_lines - start_line
 
-        t = threading.Thread(
-            target=process_chunk,
-            args=(file1_path, file2_path, start_line, lines_for_thread, i)
-        )
-        threads.append(t)
-        t.start()
+            futures.append(
+                executor.submit(
+                    process_chunk,
+                    file1_path,
+                    file2_path,
+                    start_line,
+                    lines_for_thread,
+                    i
+                )
+            )
 
-    for t in threads:
-        t.join()
+        # Wait for all threads to complete
+        for future in futures:
+            future.result()
 
     merge_chunks(output_path, num_threads)
     elapsed = time.time() - start_time
