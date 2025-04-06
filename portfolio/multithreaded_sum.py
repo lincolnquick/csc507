@@ -2,12 +2,15 @@ import threading
 import time
 import os
 
+OUTPUT_BASE = "chunk_output"
+BUFFER_SIZE = 10000  # number of lines to process in one batch
+
 def count_lines(file_path):
     with open(file_path, 'r') as f:
         return sum(1 for _ in f)
 
-def process_chunk(file1_path, file2_path, start_line, num_lines, thread_id, output_prefix):
-    output_file = f"{output_prefix}_chunk_{thread_id}.txt"
+def process_chunk(file1_path, file2_path, start_line, num_lines, thread_id):
+    output_file = f"{OUTPUT_BASE}_{thread_id}.txt"
 
     with open(file1_path, 'r') as f1, open(file2_path, 'r') as f2:
         for _ in range(start_line):
@@ -15,28 +18,33 @@ def process_chunk(file1_path, file2_path, start_line, num_lines, thread_id, outp
             f2.readline()
 
         with open(output_file, 'w') as out:
-            for _ in range(num_lines):
-                line1 = f1.readline()
-                line2 = f2.readline()
-                if not line1 or not line2:
-                    break
-                try:
-                    num1 = int(line1.strip())
-                    num2 = int(line2.strip())
-                    out.write(f"{num1 + num2}\n")
-                except ValueError:
-                    continue
+            buffer = []
+            lines_processed = 0
 
-def merge_chunks(output_file, output_prefix, num_chunks):
+            while lines_processed < num_lines:
+                batch_size = min(BUFFER_SIZE, num_lines - lines_processed)
+                lines1 = [f1.readline() for _ in range(batch_size)]
+                lines2 = [f2.readline() for _ in range(batch_size)]
+
+                for l1, l2 in zip(lines1, lines2):
+                    try:
+                        total = int(l1.strip()) + int(l2.strip())
+                        buffer.append(f"{total}\n")
+                    except ValueError:
+                        continue
+
+                out.writelines(buffer)
+                buffer.clear()
+                lines_processed += batch_size
+
+def merge_chunks(output_file, num_chunks):
     with open(output_file, 'w') as outfile:
         for i in range(num_chunks):
-            chunk_file = f"{output_prefix}_chunk_{i}.txt"
-            try:
-                with open(chunk_file, 'r') as infile:
-                    outfile.writelines(infile.readlines())
-                os.remove(chunk_file)
-            except FileNotFoundError:
-                print(f"Warning: Chunk file not found: {chunk_file}")
+            chunk_file = f"{OUTPUT_BASE}_{i}.txt"
+            with open(chunk_file, 'r') as infile:
+                for line in infile:
+                    outfile.write(line)
+            os.remove(chunk_file)
 
 def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=None):
     start_time = time.time()
@@ -51,8 +59,6 @@ def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=Non
     print(f"Total lines: {total_lines}")
     print(f"Using {num_threads} threads with {chunk_size} lines each.")
 
-    output_prefix = output_path.replace(".txt", "")
-
     threads = []
     for i in range(num_threads):
         start_line = i * chunk_size
@@ -60,7 +66,7 @@ def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=Non
 
         t = threading.Thread(
             target=process_chunk,
-            args=(file1_path, file2_path, start_line, lines_for_thread, i, output_prefix)
+            args=(file1_path, file2_path, start_line, lines_for_thread, i)
         )
         threads.append(t)
         t.start()
@@ -68,8 +74,7 @@ def add_files_multithreaded(file1_path, file2_path, output_path, total_lines=Non
     for t in threads:
         t.join()
 
-    merge_chunks(output_path, output_prefix, num_threads)
-
+    merge_chunks(output_path, num_threads)
     elapsed = time.time() - start_time
     print(f"Multithreaded sum completed in {elapsed:.2f} seconds")
     return elapsed
