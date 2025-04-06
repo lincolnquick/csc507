@@ -51,19 +51,11 @@ def check_or_generate_file(count, filename):
         print("Error: file2_parallel.txt was not created.")
         exit(1)
 
-def run_double_numbers(filename):
+def run_double_numbers(filename, results_summary):
     print("\n--- Running double_numbers.py (single file processing) ---")
-    # Copy the file to file1.txt, because double_numbers.py expects that filename
-    subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
-    subprocess.run("python3 double_numbers.py", shell=True, check=True)
-
-def run_double_numbers_with_timing(filename, results_summary):
-    print("\n--- Running double_numbers.py (single file processing) ---")
-
-    # Copy the file to file1.txt, because double_numbers.py expects that filename
-    subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
-
     start_time = time.perf_counter()
+    # Copy the file to file1.txt, because double_numbers.py expects that filename
+    subprocess.run(f"cp {filename} file1.txt", shell=True, check=True)
     subprocess.run("python3 double_numbers.py", shell=True, check=True)
     elapsed_time = time.perf_counter() - start_time
 
@@ -104,10 +96,11 @@ def split_and_parallel_process(filename, parts, results_summary):
 def main():
     test_cases = [
         {"count": 1_000_000, "description": "1 Million Lines", "filename": "file1_1M.txt"},
-        {"count": 10_000_000, "description": "10 Million Lines", "filename": "file1_10M.txt"}
+        {"count": 10_000_000, "description": "10 Million Lines", "filename": "file1_10M.txt"},
+        {"count": 50_000_000, "description": "50 Million Lines", "filename": "file1_50M.txt"}
     ]
 
-    splits = [0, 2, 5, 10, 20, 50, 100, 200, 500]
+    splits = [0, 2, 5, 10, 20, 50, 100, 125, 150, 175, 200, 500]
 
     for test in test_cases:
         print(f"\n============================")
@@ -118,15 +111,11 @@ def main():
         check_or_generate_file(test["count"], test["filename"])
 
         # Step 2: Run double_numbers.py (single file processing)
-        run_double_numbers(test["filename"])
+        run_double_numbers(test["filename"], results_summary)
 
         # Step 3: Run split/parallel/combine workflows
         for split_count in splits:
-            if split_count < 1: 
-                # No split, just run double_numbers with no split, parallel overhead
-                run_double_numbers_with_timing(test["filename"], results_summary)
-            else:
-                # With splits, split the file and run the parallel processing
+            if split_count > 1:
                 split_and_parallel_process(test["filename"], split_count, results_summary)
 
     print("\nAll experiments completed!")

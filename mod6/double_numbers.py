@@ -68,11 +68,14 @@ def method3_split_in_two():
     end = time.time()
     print(f"Method 3 (Split in two): {end - start:.4f} seconds.")
     
-def main():
+def run_all():
     method1_read_all()
     method2_read_line_by_line()
     method3_split_in_two()
     
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1:
+        run_all()
+    else:
+        method2_read_line_by_line()  # Default to method 2 if no argument provided
 

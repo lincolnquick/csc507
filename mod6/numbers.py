@@ -75,10 +75,9 @@ if __name__ == "__main__":
     
     # Accept an optional argument for count
     if len(sys.argv) > 1:
-        print(f"Using provided count for random number generation: {sys.argv[1]}")
         count = int(sys.argv[1])
     
-    print("Running random number generation tests...")
+    print(f"Running random number generation tests for {count} numbers...")
     
     #time_single = generate_numbers_single_threaded(filename_single, count)
     #print(f"Single-threaded execution time: {time_single:.4f} seconds")

@@ -43,15 +43,15 @@ def verify_wc(file_path, expected_lines=None):
 # Preview file contents
 def preview_file(file_path):
     print(f"\nPreview of {file_path}:")
-    print("First 10 lines:")
-    subprocess.run(["head", "-10", file_path])
-    print("\nLast 10 lines:")
-    subprocess.run(["tail", "-10", file_path])
+    print("First 5 lines:")
+    subprocess.run(["head", "-5", file_path])
+    print("\nLast 5 lines:")
+    subprocess.run(["tail", "-5", file_path])
 
 # Clean up temp files
 def cleanup_temp_files():
     print("\nCleaning up temporary test files...")
-    for pattern in ["test1.txt", "test2.txt", "totalfile_part_*.txt"]:
+    for pattern in ["test1.txt", "test2.txt", "totalfile_part_*.txt", "hugefile*_part_*.txt"]:
         for file in glob.glob(pattern):
             try:
                 os.remove(file)

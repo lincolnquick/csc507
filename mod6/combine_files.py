@@ -1,3 +1,5 @@
+import sys
+
 def combine_files(num_parts, final_output):
     with open(final_output, 'w') as outfile:
         for i in range(num_parts):
@@ -8,7 +10,11 @@ def combine_files(num_parts, final_output):
     print(f"Combined {num_parts} files into {final_output}.")
 
 if __name__ == "__main__":
-    combine_files(10, 'newfile1_combined.txt')
+    if len(sys.argv) > 1:
+        num_parts = int(sys.argv[1])
+    else:
+        num_parts = 10
+    combine_files(num_parts, 'newfile1_combined.txt')
 
 
 
