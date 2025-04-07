@@ -51,13 +51,29 @@ def preview_file(file_path):
 # Clean up temp files
 def cleanup_temp_files():
     print("\nCleaning up temporary test files...")
-    for pattern in ["test1.txt", "test2.txt", "totalfile_part_*.txt", "hugefile*_part_*.txt"]:
+    for pattern in ["test1.txt", "test2.txt", "totalfile_part_*.txt", 
+                "hugefile*_part_*.txt", "*_chunk_*.txt"]:
         for file in glob.glob(pattern):
             try:
                 os.remove(file)
                 print(f"Deleted {file}")
             except Exception as e:
                 print(f"Error deleting {file}: {e}")
+
+# Clean up all output files
+def cleanup_all_files():
+    print("\nCleaning up all large input and output files...")
+    patterns = [
+        "file1.txt", "file2.txt",
+        "hugefile1.txt", "hugefile2.txt",
+        "totalfile_single.txt", "totalfile_multi.txt", "totalfile_parallel.txt"
+    ]
+    for pattern in patterns:
+        try:
+            os.remove(pattern)
+            print(f"Deleted {pattern}")
+        except Exception as e:
+            print(f"Error deleting {pattern}: {e}")
 
 def main():
     print("=== Setup and Verification Script ===")
@@ -93,6 +109,11 @@ def main():
             print(f"WARNING: Output file {fname} not found.")
 
     cleanup_temp_files()
+
+    if "--cleanup" in sys.argv:
+        cleanup_all_files()
+        print("All input and output files cleaned up.")
+        
     print("\n=== All done! ===")
 
 if __name__ == "__main__":

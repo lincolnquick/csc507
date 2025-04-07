@@ -10,6 +10,8 @@ from multiprocessing import Process
 from multithreaded_sum import add_files_multithreaded, count_lines
 import os
 import time
+import shutil
+import io
 
 def process_pair(part_id):
     file1 = f"hugefile1_part_{part_id}.txt"
@@ -21,11 +23,11 @@ def process_pair(part_id):
     add_files_multithreaded(file1, file2, output, total_lines=total_lines, output_prefix=output_prefix)
 
 def merge_final_output(num_parts, final_output):
-    with open(final_output, 'w') as outfile:
+    with open(final_output, 'w', buffering=io.DEFAULT_BUFFER_SIZE) as outfile:
         for i in range(1, num_parts + 1):
             part_file = f"totalfile_part_{i}.txt"
-            with open(part_file, 'r') as infile:
-                outfile.writelines(infile.readlines())
+            with open(part_file, 'r', buffering=io.DEFAULT_BUFFER_SIZE) as infile:
+                shutil.copyfileobj(infile, outfile)  # more efficient than readlines
             os.remove(part_file)
 
 def run_parallel_driver():

@@ -80,6 +80,6 @@ The `setup_and_verify.py` script also:
 
 ## Notes
 
-- **Storage**: Ensure at least 10–15 GB of free space
-- **Runtime**: Expect up to 20+ minutes on slower machines (particularly for the multithreaded full pass)
+- **Storage**: Ensure at least 100–120 GB of free space
+- **Runtime**: Expect up to 30+ minutes on slower machines (particularly for the multithreaded full pass)
 - **Parallelism**: Multithreaded and parallel scripts automatically detect CPU cores for best performance
